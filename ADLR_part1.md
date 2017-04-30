@@ -88,8 +88,8 @@ do
             break
             ;;
         "remote1")
-            echo "you chose remote1 = rbot1"
-            export ROS_MASTER_URI=http://rbot:11311
+            echo "you chose remote1 = rbotName"
+            export ROS_MASTER_URI=http://rbotName:11311
             break
             ;;
         "remote2")
