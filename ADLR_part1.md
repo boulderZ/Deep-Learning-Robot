@@ -67,7 +67,50 @@ export ROS_MASTER_URI=http://rbotName:11311
 export ROS_HOSTNAME=rbotName
 ```
 
+#### Switching ROS_MASTER_URI
+You will sometimes want to just run roscore from you host machine. This is useful for going through the tutorials and running simulators in a stand alone mode. I wrote a unix script make it easy to change the ROS_MASTER_URI. It will prompt you with choices and show the final change when done.
 
+```
+#!/bin/bash
+# Bash Menu Script for setting ROS_MASTER_URI
+# after creating file, chmod a+x filename.sh
+# and then ./filename.sh to execute
+echo 'current ROS_MASTER_URI:'
+echo $ROS_MASTER_URI
+PS3='Please enter your ROS_MASTER_URI choice: '
+options=("host" "remote1" "remote2" "Quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "host")
+            echo "you chose host = localhost"
+            export ROS_MASTER_URI=http://localhost:11311
+            break
+            ;;
+        "remote1")
+            echo "you chose remote1 = rbot1"
+            export ROS_MASTER_URI=http://rbot:11311
+            break
+            ;;
+        "remote2")
+            echo "you chose TBD (no change)"
+            break
+            ;;
+        "Quit")
+            break
+            ;;
+        *) echo invalid option;;
+    esac
+
+done
+echo 'ROS_MASTER_URI set to:'
+echo $ROS_MASTER_URI
+```
+I added an alias in my `.bashrc` to make this easier to use:
+
+`alias setros_master='. /usr/local/bin/setros_master.sh'`
+
+Then you can just type `setros_master` from the bash prompt as: `$ setros_master`
 #### Add SSD drive
 I utilized the following source (richards technotes) and am just copying it for posterity.
 
